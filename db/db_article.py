@@ -5,7 +5,6 @@ from .article_feed import article
 
 from db.models import DbArticle
 
-
 def db_feed(db: Session):
     new_article_list = [DbArticle(
         title=article["title"],
@@ -43,3 +42,5 @@ def get_article_by_id(article_id: int, db: Session) -> DbArticle:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Article with id = {article_id} not found')
     return article
+
+

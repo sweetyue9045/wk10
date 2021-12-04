@@ -15,6 +15,12 @@ class ArticleResponseSchema(ArticleRequestSchema):
     class Config:
         orm_mode = True
 
+class OnlyArticleResponseSchema(ArticleRequestSchema):
+    pass
+
+    class Config:
+        orm_mode = True
+
 class UserRequestSchema(BaseModel):
     username: str
     email: str
@@ -31,24 +37,64 @@ class OnlyUserResponseSchema(UserRequestSchema):
     class Config:
         orm_mode = True
 
-class OnlyArticleResponseSchema(ArticleRequestSchema):
+class CommentRequestSchema(BaseModel):
+    username: str
+    content: str
+    article_id: int
+    user_id: int
+    
+class CommentResponseSchema(CommentRequestSchema):
+    id: int
+    article_id: int
+    user_id: int
+
+    class Config:
+        orm_mode = True
+
+class OnlyCommentResponseSchema(CommentRequestSchema):
     pass
 
     class Config:
         orm_mode = True
 
+class LikeRequestSchema(BaseModel):
+    username: str
+    article_id: int
+    user_id: int
+    
+class LikeResponseSchema(LikeRequestSchema):
+    id: int
+    article_id: int
+    user_id: int
+
+    class Config:
+        orm_mode = True
+
+class OnlyLikeResponseSchema(LikeRequestSchema):
+    pass
+
+    class Config:
+        orm_mode = True
+
+
 class ArticleResponseWithUserSchema(ArticleRequestSchema):
     id: int
     owner_id: int
-    owner: OnlyUserResponseSchema
+    articles_owner: OnlyUserResponseSchema
+    articles_comment: List[OnlyCommentResponseSchema] = []
+    articles_like: List[OnlyLikeResponseSchema] = []
 
     class Config:
         orm_mode = True
 
-class UserResponseWithProductsSchema(UserRequestSchema):
+
+class UserResponseWithArticleSchema(UserRequestSchema):
     id: int
     created_articles: List[OnlyArticleResponseSchema] = []
+    created_comments:  List[OnlyCommentResponseSchema] = []
+    created_likes:  List[OnlyLikeResponseSchema] = []
 
     class Config:
         orm_mode = True
+
 
