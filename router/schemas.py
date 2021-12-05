@@ -10,7 +10,6 @@ class ArticleRequestSchema(BaseModel):
 
 class ArticleResponseSchema(ArticleRequestSchema):
     id: int
-    owner_id: int
 
     class Config:
         orm_mode = True
@@ -45,8 +44,6 @@ class CommentRequestSchema(BaseModel):
     
 class CommentResponseSchema(CommentRequestSchema):
     id: int
-    article_id: int
-    user_id: int
 
     class Config:
         orm_mode = True
@@ -64,8 +61,6 @@ class LikeRequestSchema(BaseModel):
     
 class LikeResponseSchema(LikeRequestSchema):
     id: int
-    article_id: int
-    user_id: int
 
     class Config:
         orm_mode = True
